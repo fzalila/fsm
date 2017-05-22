@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            id="org.geneauto.xtext.toXmi.contribution1">
+         <menu
+               label="XText toolkit"
+               path="additions"
+               id="org.geneauto.xtext.toXmi.xtexttoolkit">
+            <separator
+                  name="xTextToolkit">
+            </separator>
+         </menu>
+         <action
+               class="org.geneauto.xtext.toxmi.popup.actions.XTextToXmiAction"
+               enablesFor="1"
+               id="org.geneauto.xtext.toXmi.newAction"
+               label="Generate XMI version of an XText resource"
+               menubarPath="org.geneauto.xtext.toXmi.xtexttoolkit/xTextToolkit"
+               tooltip="Generates an Xmi representation from an XText instance">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>
