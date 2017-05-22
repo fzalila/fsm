@@ -31,7 +31,6 @@ public class FSMParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getEBooleanAccess().getAlternatives(), "rule__EBoolean__Alternatives");
 					put(grammarAccess.getFSMAccess().getGroup(), "rule__FSM__Group__0");
 					put(grammarAccess.getFSMAccess().getGroup_3(), "rule__FSM__Group_3__0");
 					put(grammarAccess.getFSMAccess().getGroup_3_3(), "rule__FSM__Group_3_3__0");

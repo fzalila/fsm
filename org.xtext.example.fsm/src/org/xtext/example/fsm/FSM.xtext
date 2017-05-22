@@ -14,11 +14,11 @@ FSM returns FSM:
 
 
 State returns State:
-	initial?='initial'
-	final?='final'
+	(initial?='initial')?
+	(final?='final')?
 	'State'
 	'{'
-		('name' name=ID)?
+		('name' name=ID)
 		('outgoingTransition' '{' outgoingTransition+=Transition ( "," outgoingTransition+=Transition)* '}' )?
 	'}';
 

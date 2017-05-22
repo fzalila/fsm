@@ -21,7 +21,7 @@ import org.eclipse.xtext.resource.EObjectDescription
  * on how and when to use it.
  */
 class FSMScopeProvider extends AbstractFSMScopeProvider {
-
+ 
 	override getScope(EObject object, EReference ref) {
 		println("xxx ")
 		if (object instanceof Transition) {

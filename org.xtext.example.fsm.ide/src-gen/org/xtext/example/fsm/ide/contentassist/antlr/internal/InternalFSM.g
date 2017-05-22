@@ -467,7 +467,7 @@ rule__State__Group__0__Impl
 :
 (
 	{ before(grammarAccess.getStateAccess().getInitialAssignment_0()); }
-	(rule__State__InitialAssignment_0)
+	(rule__State__InitialAssignment_0)?
 	{ after(grammarAccess.getStateAccess().getInitialAssignment_0()); }
 )
 ;
@@ -494,7 +494,7 @@ rule__State__Group__1__Impl
 :
 (
 	{ before(grammarAccess.getStateAccess().getFinalAssignment_1()); }
-	(rule__State__FinalAssignment_1)
+	(rule__State__FinalAssignment_1)?
 	{ after(grammarAccess.getStateAccess().getFinalAssignment_1()); }
 )
 ;
@@ -575,7 +575,7 @@ rule__State__Group__4__Impl
 :
 (
 	{ before(grammarAccess.getStateAccess().getGroup_4()); }
-	(rule__State__Group_4__0)?
+	(rule__State__Group_4__0)
 	{ after(grammarAccess.getStateAccess().getGroup_4()); }
 )
 ;

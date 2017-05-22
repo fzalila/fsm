@@ -185,7 +185,7 @@ ruleState returns [EObject current=null]
 					setWithLastConsumed($current, "initial", true, "initial");
 				}
 			)
-		)
+		)?
 		(
 			(
 				lv_final_1_0='final'
@@ -199,7 +199,7 @@ ruleState returns [EObject current=null]
 					setWithLastConsumed($current, "final", true, "final");
 				}
 			)
-		)
+		)?
 		otherlv_2='State'
 		{
 			newLeafNode(otherlv_2, grammarAccess.getStateAccess().getStateKeyword_2());
@@ -231,7 +231,7 @@ ruleState returns [EObject current=null]
 					}
 				)
 			)
-		)?
+		)
 		(
 			otherlv_6='outgoingTransition'
 			{

@@ -7,7 +7,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
 import org.eclipse.xtext.Action;
-import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.CrossReference;
 import org.eclipse.xtext.Grammar;
@@ -120,25 +119,25 @@ public class FSMGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//State:
-		//	initial?='initial'
-		//	final?='final'
+		//	initial?='initial'?
+		//	final?='final'?
 		//	'State'
-		//	'{' ('name' name=ID)? ('outgoingTransition' '{' outgoingTransition+=Transition ("," outgoingTransition+=Transition)*
+		//	'{' ('name' name=ID) ('outgoingTransition' '{' outgoingTransition+=Transition ("," outgoingTransition+=Transition)*
 		//	'}')?
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//initial?='initial' final?='final' 'State' '{' ('name' name=ID)? ('outgoingTransition' '{' outgoingTransition+=Transition
-		//("," outgoingTransition+=Transition)* '}')? '}'
+		//initial?='initial'? final?='final'? 'State' '{' ('name' name=ID) ('outgoingTransition' '{'
+		//outgoingTransition+=Transition ("," outgoingTransition+=Transition)* '}')? '}'
 		public Group getGroup() { return cGroup; }
 		
-		//initial?='initial'
+		//initial?='initial'?
 		public Assignment getInitialAssignment_0() { return cInitialAssignment_0; }
 		
 		//'initial'
 		public Keyword getInitialInitialKeyword_0_0() { return cInitialInitialKeyword_0_0; }
 		
-		//final?='final'
+		//final?='final'?
 		public Assignment getFinalAssignment_1() { return cFinalAssignment_1; }
 		
 		//'final'
@@ -150,7 +149,7 @@ public class FSMGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 		
-		//('name' name=ID)?
+		//'name' name=ID
 		public Group getGroup_4() { return cGroup_4; }
 		
 		//'name'
@@ -269,31 +268,11 @@ public class FSMGrammarAccess extends AbstractGrammarElementFinder {
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
-	public class EBooleanElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.fsm.FSM.EBoolean");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Keyword cTrueKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
-		private final Keyword cFalseKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
-		
-		//EBoolean ecore::EBoolean:
-		//	'true' | 'false';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'true' | 'false'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//'true'
-		public Keyword getTrueKeyword_0() { return cTrueKeyword_0; }
-		
-		//'false'
-		public Keyword getFalseKeyword_1() { return cFalseKeyword_1; }
-	}
 	
 	
 	private final FSMElements pFSM;
 	private final StateElements pState;
 	private final TransitionElements pTransition;
-	private final EBooleanElements pEBoolean;
 	
 	private final Grammar grammar;
 	
@@ -307,7 +286,6 @@ public class FSMGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFSM = new FSMElements();
 		this.pState = new StateElements();
 		this.pTransition = new TransitionElements();
-		this.pEBoolean = new EBooleanElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -351,10 +329,10 @@ public class FSMGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//State:
-	//	initial?='initial'
-	//	final?='final'
+	//	initial?='initial'?
+	//	final?='final'?
 	//	'State'
-	//	'{' ('name' name=ID)? ('outgoingTransition' '{' outgoingTransition+=Transition ("," outgoingTransition+=Transition)*
+	//	'{' ('name' name=ID) ('outgoingTransition' '{' outgoingTransition+=Transition ("," outgoingTransition+=Transition)*
 	//	'}')?
 	//	'}';
 	public StateElements getStateAccess() {
@@ -376,16 +354,6 @@ public class FSMGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getTransitionRule() {
 		return getTransitionAccess().getRule();
-	}
-	
-	//EBoolean ecore::EBoolean:
-	//	'true' | 'false';
-	public EBooleanElements getEBooleanAccess() {
-		return pEBoolean;
-	}
-	
-	public ParserRule getEBooleanRule() {
-		return getEBooleanAccess().getRule();
 	}
 	
 	//terminal ID:
