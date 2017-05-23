@@ -28,34 +28,30 @@ public class FSMDerivedStateComputer implements IDerivedStateComputer {
 		if (!resource.getContents().isEmpty() && preLinkingPhase) {
 			FSM fsm = (FSM) resource.getContents().get(0);
 			for (State s : fsm.getOwnedState()) {
-				for (State ss : fsm.getOwnedState()) {
-					for (Transition t : ss.getOutgoingTransition()) {
-						List<INode> nodes = NodeModelUtils.findNodesForFeature(t, FsmPackage.Literals.TRANSITION__TARGET);
-						if (!nodes.isEmpty()) {
-							String text = nodes.get(0).getText().trim();
-							if (s.getName().equals(text)) {
-								final EObject proxy = EcoreUtil.create(FsmPackage.Literals.TRANSITION);
-								((InternalEObject) proxy).eSetProxyURI(EcoreUtil.getURI(t));
-								System.out.println("proxyproxy "+proxy);
-								s.getIncomingTransition().add((Transition) proxy);
+				System.out.println("start state " + s);
+				for (Transition t : s.getOutgoingTransition()) {
+					List<INode> nodes = NodeModelUtils.findNodesForFeature(t, FsmPackage.Literals.TRANSITION__TARGET);
+					if (!nodes.isEmpty()) {
+						String text = nodes.get(0).getText().trim();
+						System.out.println("text0 " + text);
+						for (State s_cible : fsm.getOwnedState()) {
+							if (s_cible.getName().equals(text)) {
+								System.out.println("s_cible " + s_cible);
+								s_cible.getIncomingTransition().add(t);
+								System.out.println("s_cible.getIncomingTransition() " + s_cible.getIncomingTransition());
 							}
 						}
+						}
 					}
+				System.out.println("finish state " + s);
 				}
 			}
 		}
-		
-	}
+	
 
 	@Override
 	public void discardDerivedState(DerivedStateAwareResource resource) {
-		if (!resource.getContents().isEmpty()) {
-			FSM fsm = (FSM) resource.getContents().get(0);
-			for (State s : fsm.getOwnedState()) {
-				s.getIncomingTransition().clear();
-			}
-		}
-		
+
 	}
 
 }

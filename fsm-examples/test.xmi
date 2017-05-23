@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <fsm:FSM xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fsm="http://fsm">
   <ownedState name="s1" initial="true" final="true">
-    <outgoingTransition target="//@ownedState.2" input="did" output="aa"/>
+    <outgoingTransition target="//@ownedState.1" input="did" output="aa"/>
   </ownedState>
-  <ownedState name="s2" initial="true" final="true"/>
-  <ownedState name="s3" initial="true" final="true"/>
+  <ownedState name="s2" incomingTransition="//@ownedState.0/@outgoingTransition.0" initial="true" final="true"/>
 </fsm:FSM>

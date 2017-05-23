@@ -1,1 +1,11 @@
-FSM { ownedState { State { name s } } }
+FSM{
+				ownedState
+				{ 
+					initial final State { name s1  outgoingTransition {Transition {
+						input "did" output "aa" target s2     
+					}   
+						
+					}},
+					initial final State { name s2 }       
+				}      
+			}     

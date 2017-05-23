@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fsm:FSM xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fsm="http://fsm">
+  <ownedState name="s1" initial="true" final="true">
+    <outgoingTransition input="did" output="aa">
+      <target href="My.fsm#|0"/>
+    </outgoingTransition>
+  </ownedState>
+  <ownedState name="s2" initial="true" final="true"/>
+</fsm:FSM>

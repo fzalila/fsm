@@ -9,6 +9,7 @@ import org.eclipse.core.resources.mapping.ModelStatus;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.jface.action.IAction;
@@ -20,6 +21,10 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
+import org.xtext.example.fsm.ui.internal.FsmActivator;
+
+import com.google.inject.Injector;
 
 public class XTextToXmiAction implements IObjectActionDelegate {
 
@@ -45,13 +50,16 @@ public class XTextToXmiAction implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 		IFile file = getFile();
+
+	    
+		Injector injector = FsmActivator.getInstance().getInjector("org.xtext.example.fsm.FSM");
+		XtextResourceSetProvider provider = injector.getInstance(XtextResourceSetProvider.class);
+		ResourceSet resourceSet = provider.get(file.getProject()); 
+
 		URI xtextURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-	    
-	    XtextResourceSet resourceSet = new XtextResourceSet();
-	    
-	    //Resource xtextResource = resourceSet.getResource(xtextURI , true);
-	    Resource xtextResource = resourceSet.createResource(xtextURI);
-	    System.out.println(xtextURI.toString());
+
+		XtextResource xtextResource = (XtextResource) resourceSet.getResource(xtextURI, true);;
+
 	    if (xtextResource != null){
 		    Map<String,Boolean> options = new HashMap<String,Boolean>();
 		    options.put(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
@@ -63,6 +71,7 @@ public class XTextToXmiAction implements IObjectActionDelegate {
 			}
 		    Resource xmiResource = new XMIResourceFactoryImpl().createResource(xtextURI.trimFileExtension().appendFileExtension("xmi"));
 		    xmiResource.getContents().add(xtextResource.getContents().get(0));
+
 		    EcoreUtil.resolveAll(resourceSet);
 		    try {
 				xmiResource.save(null);
@@ -71,7 +80,7 @@ public class XTextToXmiAction implements IObjectActionDelegate {
 				e.printStackTrace();
 			}
 	    }else{
-	    	ModelStatus sts = new ModelStatus(IStatus.ERROR, "org.geneauto.xtext.toXmi", "http://blocklibrary/1.0", "Impossible to load the selected file for xmi conversion.\n" +
+	    	ModelStatus sts = new ModelStatus(IStatus.ERROR, "org.eclipse.xtext.toXmi", "http://fsm", "Impossible to load the selected file for xmi conversion.\n" +
 	    			"Maybe this file is not an XText instance ? Status");
 	    	ErrorDialog.openError(shell, "Error", "Impossible to load the selected file for xmi conversion.\n" +
 	    			"Maybe this file is not an XText instance ?", sts);
@@ -90,5 +99,15 @@ public class XTextToXmiAction implements IObjectActionDelegate {
 	        ((IStructuredSelection)selection)  
 	            .getFirstElement();  
 	 }
+	protected static XtextResource getFiacreXtextResource(IFile file) {
+		Injector injector = FsmActivator.getInstance().getInjector("org.xtext.example.fsm.FSM");
+		XtextResourceSetProvider provider = injector.getInstance(XtextResourceSetProvider.class);
+		ResourceSet resourceSet = provider.get(file.getProject()); 
+
+		URI xtextURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+
+		return (XtextResource) resourceSet.getResource(xtextURI, true);
+
+	}
 
 }
